@@ -33,10 +33,10 @@ void append(U&& value) {
 ### 2. Variadic Templates for Callables
 
 ```cpp
-template<std::convertible_to<T> U>
-void append(U&& value) {
-    new (data + _size) T(std::forward<U>(value));
-    ++_size;
+template<std::convertible_to<T>... Args>
+vector(T &&t, Args&&... args):vector(){
+    append(std::move(t));
+    (append(std::forward<Args>(args)), ...);
 }
 ```
 
